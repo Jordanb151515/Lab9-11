@@ -1,20 +1,26 @@
+import java.util.Scanner;
+import java.io.*;
 
 /**
- * Write a description of class SalesAnalysis here.
+ * SalesAnalysis class includes methods to process file, add to an array of sales, and display
+ * output to the user regarding the sales.
  *
- * @author (your name)
- * @version (a version number or a date)
+ * @author Jordan Byrne
+ * @version v1.0
+ * @since 5/8/25
  */
-public class SalesAnalysis
+public class SalesAnalysis 
 {
-    // instance variables - replace the example below with your own
     public int DAYS_OF_THE_WEEK = 7;
     private double[] weeklyNumber;
     private String inputFile;
     private int lineNumber = 0;
 
     /**
-     * Constructor for objects of class SalesAnalysis
+     * Constructor for objects of class SalesAnalysis. Assigns the input to inputFile and intializes
+     * new array for sales.
+     * 
+     * @param  inFile  the string fot the path of the file
      */
     public SalesAnalysis(String inFile)
     {
@@ -23,12 +29,9 @@ public class SalesAnalysis
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * Method creates file and scanner objects and reads each line from the file.
      */
-    public void processFile()
+    public void processFile()throws IOException
     {
         String line;
         File file = new File(inputFile);
@@ -42,14 +45,13 @@ public class SalesAnalysis
     }
     
     /**
-     * An example of a method - replace this comment with your own
+     * Method adds the contents of each line in the file to an array for the sales.
      *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * @param  inArray  the inputted array for the elements that are going to be totaled
      */
     private void setArrayElement(String[] inArray)
     {
-        double total;
+        double total = 0;
         for (String s : inArray){
             total += Double.parseDouble(s);
         }
@@ -58,18 +60,15 @@ public class SalesAnalysis
     }
     
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * Method calculates the total, min, max, and average and displays the results to the console.
      */
     public void writeOutput()
     {
        double totalSales = 0;
        double min = weeklyNumber[0];
        double max = weeklyNumber[0];
-       int minWeek, maxWeek;
-       for(int i=0; i<=weeklyNumber.length; i++){
+       int minWeek = 0, maxWeek = 0;
+       for(int i=0; i<weeklyNumber.length; i++){
             totalSales += weeklyNumber[i];
             if(weeklyNumber[i]<min){
             min = weeklyNumber[i];
@@ -82,12 +81,12 @@ public class SalesAnalysis
             
             System.out.print("\nWeek " + (i+1) + " Info");
             System.out.printf("\nTotal Sales: $%,.2f", weeklyNumber[i]);
-            System.out.printf("\nAvg Daily Sales for Week: $%,.2f", weeklyNumber[i]/DAYS_OF_THE_WEEK);
+            System.out.printf("\nAvg Daily Sales for Week: $%,.2f\n", weeklyNumber[i]/DAYS_OF_THE_WEEK);
             
         }
-        System.out.printf("Total Sales for all Weeks: $%,.2f\n", totalSales);
-        System.out.printf("Avg Weekly Sales: $%,.2f\n", totalSales/DAYS_OF_THE_WEEK);
-        System.out.printf("Week %d had the highest amount of sales", maxWeek + 1);
-        System.out.printf("Week %d had the lowest amount of sales", minWeek + 1);
+        System.out.printf("\nTotal Sales for all Weeks: $%,.2f\n", totalSales);
+        System.out.printf("Avg Weekly Sales: $%,.2f\n", totalSales/weeklyNumber.length);
+        System.out.printf("Week %d had the highest amount of sales\n", maxWeek + 1);
+        System.out.printf("Week %d had the lowest amount of sales\n", minWeek + 1);
     }
 }
